@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModWorld — Новий сайт модів</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-gradient"></div>
+    <header>
+        <h1>🚀 Вітаємо вас на старті великої пригоди!</h1>
+        <nav>
+            <a href="#about">Про нас</a>
+            <a href="#features">Можливості</a>
+            <a href="#mods">Моди</a>
+            <a href="#community">Спільнота</a>
+            <a href="#" id="loginBtn" class="auth-btn">Увійти / Зареєструватися</a>
+            <span id="userGreeting" class="user-greeting" style="display:none;"></span>
+            <a href="#" id="logoutBtn" class="auth-btn" style="display:none;">Вийти</a>
+        </nav>
+    </header>
+    <main>
+        <section id="about" class="card">
+            <h2>👋 Привіт, друзі!</h2>
+            <p>Ми – команда ентузіастів, які з любов'ю та пристрастю працюють над створенням <strong>нового сайту модів</strong>. Це наша мрія, наша амбіція і наше прагнення подарувати вам щось справді унікальне!</p>
+            <h3>🏗 Наш шлях лише починається</h3>
+            <p>Станом на травень <strong>2025 року</strong> сайт ще не запущений, але це тільки початок великої історії. Ми невпинно працюємо над його розробкою, тестуємо можливості та вдосконалюємо кожен елемент, щоб ви отримали <strong>найкращий досвід</strong>!</p>
+            <h3>⏳ Час готуватися!</h3>
+            <p>З нетерпінням очікуємо <strong>офіційний реліз</strong> сайту, який відбудеться вже у <strong>червні 2025 року</strong>. Це буде справжнє свято для всіх фанатів модів, творчості та персоналізації улюблених ігор!</p>
+        </section>
+        <section id="features" class="card">
+            <h2>🔥 Що вас чекає?</h2>
+            <ul>
+                <li>💎 Унікальна платформа для завантаження модів</li>
+                <li>⚡ Зручний і швидкий доступ до модифікацій</li>
+                <li>🎨 Творча атмосфера та спільнота однодумців</li>
+            </ul>
+        </section>
+        <section id="mods" class="card">
+            <h2>🧩 Перший мод: Sodium</h2>
+            <div class="mod-card">
+                <img src="https://cdn.modrinth.com/data/AANobbMI/icon.png" alt="Sodium Logo" class="mod-logo">
+                <div class="mod-info">
+                    <h3>Sodium <span class="badge">Fabric 1.21.5</span></h3>
+                    <p>
+                        <strong>Sodium</strong> — це потужний мод для оптимізації графіки Minecraft, який значно підвищує FPS та робить гру плавнішою.<br>
+                        <b>Платформа:</b> Fabric<br>
+                        <b>Версія Minecraft:</b> 1.21.5
+                    </p>
+                    <a class="download-btn" href="https://cdn.modrinth.com/data/AANobbMI/versions/DA250htH/sodium-fabric-0.6.13%2Bmc1.21.5.jar" target="_blank" download>
+                        ⬇️ Завантажити Sodium для Fabric 1.21.5
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section id="community" class="card">
+            <h2>🤝 Будьмо разом!</h2>
+            <p>Ми запрошуємо вас залишатися з нами, слідкувати за новинами та бути частиною нашої історії. Разом ми зробимо щось <strong>неймовірне</strong>!</p>
+        </section>
+    </main>
+    <footer>
+        <p>🙌 Дякуємо, що ви з нами! До зустрічі! 🚀</p>
+    </footer>
+
+    <!-- Модальне вікно реєстрації/логіну -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2 id="modalTitle">Реєстрація / Вхід</h2>
+            <form id="authForm">
+                <label for="username">Ім'я користувача</label>
+                <input type="text" id="username" name="username" required minlength="3" maxlength="16" autocomplete="username">
+                <label for="password">Пароль</label>
+                <input type="password" id="password" name="password" required minlength="4" maxlength="32" autocomplete="current-password">
+                <button type="submit" class="primary-btn">Увійти / Зареєструватися</button>
+                <div id="authError" class="auth-error"></div>
+            </form>
+        </div>
+    </div>
+    <script>
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const authModal = document.getElementById('authModal');
+    const closeModal = document.getElementById('closeModal');
+    const authForm = document.getElementById('authForm');
+    const userGreeting = document.getElementById('userGreeting');
+    const authError = document.getElementById('authError');
+
+    function showModal() {
+        authModal.style.display = 'block';
+        authError.textContent = '';
+    }
+    function hideModal() {
+        authModal.style.display = 'none';
+        authForm.reset();
+    }
+    function showGreeting(username) {
+        userGreeting.textContent = `👤 Вітаємо, ${username}!`;
+        userGreeting.style.display = 'inline-block';
+        loginBtn.style.display = 'none';
+        logoutBtn.style.display = 'inline-block';
+    }
+    function hideGreeting() {
+        userGreeting.style.display = 'none';
+        loginBtn.style.display = 'inline-block';
+        logoutBtn.style.display = 'none';
+    }
+    function saveUser(username) {
+        localStorage.setItem('modworld_user', username);
+    }
+    function getUser() {
+        return localStorage.getItem('modworld_user');
+    }
+    function removeUser() {
+        localStorage.removeItem('modworld_user');
+    }
+
+    loginBtn.onclick = showModal;
+    closeModal.onclick = hideModal;
+    window.onclick = function(event) {
+        if (event.target == authModal) hideModal();
+    };
+    logoutBtn.onclick = function() {
+        removeUser();
+        hideGreeting();
+    };
+
+    authForm.onsubmit = function(e) {
+        e.preventDefault();
+        const username = authForm.username.value.trim();
+        const password = authForm.password.value;
+        if (username.length < 3 || password.length < 4) {
+            authError.textContent = "Некоректні дані!";
+            return;
+        }
+        saveUser(username);
+        showGreeting(username);
+        hideModal();
+    };
+
+    // On load
+    document.addEventListener('DOMContentLoaded', () => {
+        const user = getUser();
+        if (user) showGreeting(user);
+    });
+    </script>
+</body>
+</html>

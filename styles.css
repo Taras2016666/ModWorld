@@ -1,0 +1,277 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f8fafc;
+    color: #222;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+    overflow-x: hidden;
+}
+
+.background-gradient {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 0;
+    background: radial-gradient(circle at 70% 20%, #90cdf4 0%, #2b6cb0 60%, #2d3748 100%);
+    opacity: 0.18;
+    pointer-events: none;
+    animation: gradientMove 20s linear infinite alternate;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 70% 20%; }
+    100% { background-position: 30% 80%; }
+}
+
+header {
+    background: rgba(45,55,72,0.95);
+    color: #fff;
+    padding: 2rem 1rem 1rem 1rem;
+    text-align: center;
+    border-radius: 0 0 24px 24px;
+    box-shadow: 0 4px 24px rgba(45,55,72,0.15);
+    position: relative;
+    z-index: 2;
+}
+
+header nav {
+    margin-top: 1rem;
+}
+
+header nav a, .auth-btn {
+    color: #90cdf4;
+    text-decoration: none;
+    margin: 0 1rem;
+    font-weight: bold;
+    transition: color 0.2s;
+    border-radius: 6px;
+    padding: 0.3em 0.8em;
+    background: rgba(255,255,255,0.04);
+    display: inline-block;
+}
+
+header nav a:hover, .auth-btn:hover {
+    color: #fff;
+    background: #4299e1;
+}
+
+.user-greeting {
+    color: #fff;
+    background: #38a169;
+    margin-left: 1rem;
+    padding: 0.3em 0.8em;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1em;
+}
+
+main {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: rgba(255,255,255,0.95);
+    border-radius: 18px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.09);
+    position: relative;
+    z-index: 2;
+}
+
+.card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(44, 62, 80, 0.07);
+    padding: 2rem 1.5rem;
+    margin-bottom: 2.5rem;
+    animation: fadeInUp 0.7s;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+section {
+    margin-bottom: 2rem;
+}
+
+h1, h2, h3 {
+    color: #2b6cb0;
+    margin-top: 0;
+}
+
+ul {
+    padding-left: 1.5rem;
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(45,55,72,0.95);
+    color: #fff;
+    margin-top: 2rem;
+    border-radius: 0 0 18px 18px;
+    box-shadow: 0 -2px 12px rgba(45,55,72,0.08);
+    position: relative;
+    z-index: 2;
+}
+
+/* Мод-картка */
+.mod-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    background: linear-gradient(90deg, #e3f2fd 60%, #f8fafc 100%);
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+    padding: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    transition: box-shadow 0.2s;
+}
+
+.mod-card:hover {
+    box-shadow: 0 6px 24px rgba(44, 62, 80, 0.13);
+}
+
+.mod-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.10);
+    object-fit: contain;
+}
+
+.mod-info {
+    flex: 1;
+}
+
+.badge {
+    background: #4299e1;
+    color: #fff;
+    border-radius: 6px;
+    padding: 0.2em 0.7em;
+    font-size: 0.9em;
+    margin-left: 0.5em;
+    font-weight: 500;
+}
+
+.download-btn {
+    display: inline-block;
+    margin-top: 1em;
+    background: linear-gradient(90deg, #38a169 60%, #4299e1 100%);
+    color: #fff;
+    padding: 0.7em 1.5em;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1em;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.10);
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+.download-btn:hover {
+    background: linear-gradient(90deg, #4299e1 60%, #38a169 100%);
+    box-shadow: 0 6px 24px rgba(44, 62, 80, 0.13);
+}
+
+/* Модальне вікно */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0; top: 0; width: 100vw; height: 100vh;
+    overflow: auto;
+    background: rgba(44, 62, 80, 0.35);
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0;}
+    to { opacity: 1;}
+}
+
+.modal-content {
+    background: #fff;
+    margin: 7% auto;
+    padding: 2rem 2.5rem 1.5rem 2.5rem;
+    border-radius: 14px;
+    max-width: 350px;
+    box-shadow: 0 4px 32px rgba(44, 62, 80, 0.18);
+    position: relative;
+    animation: fadeInUp 0.5s;
+}
+
+.close {
+    color: #2b6cb0;
+    position: absolute;
+    top: 1rem; right: 1.2rem;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close:hover {
+    color: #e53e3e;
+}
+
+#authForm label {
+    display: block;
+    margin-top: 1.2em;
+    margin-bottom: 0.3em;
+    font-weight: 500;
+    color: #2b6cb0;
+}
+
+#authForm input {
+    width: 100%;
+    padding: 0.6em;
+    border-radius: 7px;
+    border: 1px solid #cbd5e1;
+    font-size: 1em;
+    margin-bottom: 0.5em;
+    background: #f8fafc;
+    transition: border 0.2s;
+}
+
+#authForm input:focus {
+    border: 1.5px solid #4299e1;
+    outline: none;
+}
+
+.primary-btn {
+    width: 100%;
+    background: linear-gradient(90deg, #4299e1 60%, #38a169 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.7em 0;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-top: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.primary-btn:hover {
+    background: linear-gradient(90deg, #38a169 60%, #4299e1 100%);
+}
+
+.auth-error {
+    color: #e53e3e;
+    margin-top: 0.7em;
+    font-size: 0.98em;
+    min-height: 1.2em;
+    text-align: center;
+}
+
+/* Адаптивність */
+@media (max-width: 700px) {
+    main { padding: 0.5rem; }
+    .card { padding: 1.2rem 0.7rem; }
+    .mod-card { flex-direction: column; align-items: center; }
+    .mod-logo { margin-bottom: 1rem; }
+}
