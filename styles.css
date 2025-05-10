@@ -57,6 +57,11 @@ header nav a:hover, .auth-btn:hover {
     background: #4299e1;
 }
 
+header nav a:focus, .auth-btn:focus {
+    outline: 2px solid #4299e1;
+    outline-offset: 2px;
+}
+
 .user-greeting {
     color: #fff;
     background: #38a169;
@@ -170,11 +175,17 @@ footer {
     text-decoration: none;
     box-shadow: 0 2px 8px rgba(44, 62, 80, 0.10);
     transition: background 0.2s, box-shadow 0.2s;
+    cursor: pointer;
 }
 
 .download-btn:hover {
     background: linear-gradient(90deg, #4299e1 60%, #38a169 100%);
     box-shadow: 0 6px 24px rgba(44, 62, 80, 0.13);
+}
+
+.download-btn:focus {
+    outline: 2px solid #4299e1;
+    outline-offset: 2px;
 }
 
 /* Модальне вікно */
@@ -186,6 +197,10 @@ footer {
     overflow: auto;
     background: rgba(44, 62, 80, 0.35);
     animation: fadeIn 0.3s;
+}
+
+.modal[aria-modal="true"] {
+    outline: none;
 }
 
 @keyframes fadeIn {
@@ -216,6 +231,11 @@ footer {
 
 .close:hover {
     color: #e53e3e;
+}
+
+.close:focus {
+    outline: 2px solid #4299e1;
+    outline-offset: 2px;
 }
 
 #authForm label {
@@ -258,6 +278,11 @@ footer {
 
 .primary-btn:hover {
     background: linear-gradient(90deg, #38a169 60%, #4299e1 100%);
+}
+
+.primary-btn:focus {
+    outline: 2px solid #4299e1;
+    outline-offset: 2px;
 }
 
 .auth-error {

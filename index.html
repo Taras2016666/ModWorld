@@ -64,11 +64,11 @@
     </footer>
 
     <!-- Модальне вікно реєстрації/логіну -->
-    <div id="authModal" class="modal">
+    <div id="authModal" class="modal" aria-modal="true" role="dialog" aria-labelledby="modalTitle" tabindex="-1">
         <div class="modal-content">
-            <span class="close" id="closeModal">&times;</span>
+            <span class="close" id="closeModal" tabindex="0" aria-label="Закрити">&times;</span>
             <h2 id="modalTitle">Реєстрація / Вхід</h2>
-            <form id="authForm">
+            <form id="authForm" autocomplete="on">
                 <label for="username">Ім'я користувача</label>
                 <input type="text" id="username" name="username" required minlength="3" maxlength="16" autocomplete="username">
                 <label for="password">Пароль</label>
@@ -88,45 +88,55 @@
     const authError = document.getElementById('authError');
 
     function showModal() {
+        if (!authModal) return;
         authModal.style.display = 'block';
         authError.textContent = '';
+        setTimeout(() => {
+            const usernameInput = document.getElementById('username');
+            if (usernameInput) usernameInput.focus();
+        }, 100);
     }
     function hideModal() {
+        if (!authModal) return;
         authModal.style.display = 'none';
-        authForm.reset();
+        if (authForm) authForm.reset();
     }
     function showGreeting(username) {
+        if (!userGreeting || !loginBtn || !logoutBtn) return;
         userGreeting.textContent = `👤 Вітаємо, ${username}!`;
         userGreeting.style.display = 'inline-block';
         loginBtn.style.display = 'none';
         logoutBtn.style.display = 'inline-block';
     }
     function hideGreeting() {
+        if (!userGreeting || !loginBtn || !logoutBtn) return;
         userGreeting.style.display = 'none';
         loginBtn.style.display = 'inline-block';
         logoutBtn.style.display = 'none';
     }
     function saveUser(username) {
-        localStorage.setItem('modworld_user', username);
+        try { localStorage.setItem('modworld_user', username); } catch(e){}
     }
     function getUser() {
-        return localStorage.getItem('modworld_user');
+        try { return localStorage.getItem('modworld_user'); } catch(e){ return null; }
     }
     function removeUser() {
-        localStorage.removeItem('modworld_user');
+        try { localStorage.removeItem('modworld_user'); } catch(e){}
     }
 
-    loginBtn.onclick = showModal;
-    closeModal.onclick = hideModal;
+    if (loginBtn) loginBtn.onclick = function(e) { e.preventDefault(); showModal(); };
+    if (closeModal) closeModal.onclick = hideModal;
     window.onclick = function(event) {
         if (event.target == authModal) hideModal();
     };
-    logoutBtn.onclick = function() {
+    if (logoutBtn) logoutBtn.onclick = function(e) {
+        e.preventDefault();
+        if (!getUser()) return;
         removeUser();
         hideGreeting();
     };
 
-    authForm.onsubmit = function(e) {
+    if (authForm) authForm.onsubmit = function(e) {
         e.preventDefault();
         const username = authForm.username.value.trim();
         const password = authForm.password.value;
@@ -138,6 +148,13 @@
         showGreeting(username);
         hideModal();
     };
+
+    // Accessibility: close modal on Escape
+    document.addEventListener('keydown', function(e) {
+        if (authModal && authModal.style.display === 'block' && (e.key === 'Escape' || e.key === 'Esc')) {
+            hideModal();
+        }
+    });
 
     // On load
     document.addEventListener('DOMContentLoaded', () => {
