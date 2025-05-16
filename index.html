@@ -79,7 +79,7 @@
             <h2 id="modalTitle">Реєстрація / Вхід</h2>
             <form id="authForm" autocomplete="on">
                 <label for="username">Ім'я користувача</label>
-                <input type="text" id="username" name="username" required minlength="3" maxlength="16" autocomplete="username">
+                <input type="text" id="username" name="username" required minlength="12" maxlength="32" autocomplete="username">
                 <label for="password">Пароль</label>
                 <input type="password" id="password" name="password" required minlength="4" maxlength="32" autocomplete="current-password">
                 <button type="submit" class="primary-btn">Увійти / Зареєструватися</button>
@@ -162,8 +162,8 @@
         e.preventDefault();
         const username = authForm.username.value.trim();
         const password = authForm.password.value;
-        if (username.length < 3 || password.length < 4) {
-            authError.textContent = "Некоректні дані!";
+        if (username.length < 12 || username.length > 32 || password.length < 4) {
+            authError.textContent = "Ім'я користувача має бути від 12 до 32 символів, пароль мінімум 4!";
             return;
         }
         let users = getUsers();
