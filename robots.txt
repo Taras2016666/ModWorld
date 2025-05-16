@@ -1,0 +1,23 @@
+# robots.txt for ModWorld
+# Дозволяє повну індексацію всім пошуковим системам
+User-agent: *
+Allow: /
+
+# Дозволити сканування всіх ресурсів
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+Allow: /*.html$
+Allow: /*.xml$
+Allow: /*.json$
+
+# Вказати розташування карти сайту
+Sitemap: https://taras2016666.github.io/ModWorld/sitemap.xml
+
+# Додатково: вказати хост (не обов'язково, але деякі боти враховують)
+Host: https://taras2016666.github.io
