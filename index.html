@@ -78,6 +78,8 @@
         </div>
     </div>
     <script>
+    // filepath: vscode-vfs://github/Taras2016666/ModWorld/index.html
+    // --- Користувачі зберігаються у localStorage як users: {username: password}
     const loginBtn = document.getElementById('loginBtn');
     const logoutBtn = document.getElementById('logoutBtn');
     const authModal = document.getElementById('authModal');
@@ -85,6 +87,26 @@
     const authForm = document.getElementById('authForm');
     const userGreeting = document.getElementById('userGreeting');
     const authError = document.getElementById('authError');
+
+    function getUsers() {
+        try {
+            return JSON.parse(localStorage.getItem('modworld_users') || '{}');
+        } catch (e) {
+            return {};
+        }
+    }
+    function saveUsers(users) {
+        localStorage.setItem('modworld_users', JSON.stringify(users));
+    }
+    function setCurrentUser(username) {
+        localStorage.setItem('modworld_user', username);
+    }
+    function getCurrentUser() {
+        return localStorage.getItem('modworld_user');
+    }
+    function removeCurrentUser() {
+        localStorage.removeItem('modworld_user');
+    }
 
     function showModal() {
         if (!authModal) return;
@@ -113,15 +135,6 @@
         loginBtn.style.display = 'inline-block';
         logoutBtn.style.display = 'none';
     }
-    function saveUser(username) {
-        try { localStorage.setItem('modworld_user', username); } catch(e){}
-    }
-    function getUser() {
-        try { return localStorage.getItem('modworld_user'); } catch(e){ return null; }
-    }
-    function removeUser() {
-        try { localStorage.removeItem('modworld_user'); } catch(e){}
-    }
 
     if (loginBtn) loginBtn.onclick = function(e) { e.preventDefault(); showModal(); };
     if (closeModal) closeModal.onclick = hideModal;
@@ -130,8 +143,8 @@
     };
     if (logoutBtn) logoutBtn.onclick = function(e) {
         e.preventDefault();
-        if (!getUser()) return;
-        removeUser();
+        if (!getCurrentUser()) return;
+        removeCurrentUser();
         hideGreeting();
     };
 
@@ -143,7 +156,19 @@
             authError.textContent = "Некоректні дані!";
             return;
         }
-        saveUser(username);
+        let users = getUsers();
+        if (users[username]) {
+            // Логін
+            if (users[username] !== password) {
+                authError.textContent = "Невірний пароль!";
+                return;
+            }
+        } else {
+            // Реєстрація
+            users[username] = password;
+            saveUsers(users);
+        }
+        setCurrentUser(username);
         showGreeting(username);
         hideModal();
     };
@@ -157,7 +182,7 @@
 
     // On load
     document.addEventListener('DOMContentLoaded', () => {
-        const user = getUser();
+        const user = getCurrentUser();
         if (user) showGreeting(user);
     });
     </script>
